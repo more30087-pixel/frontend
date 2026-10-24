@@ -1,0 +1,574 @@
+/* =============================================================
+   SECURE FILE TRANSFER SYSTEM — Stylesheet
+   ============================================================= */
+
+/* ── Reset & Base ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Palette */
+  --bg:              #0a0e27;
+  --card-bg:         rgba(15, 23, 55, 0.85);
+  --card-border:     rgba(74, 144, 226, 0.3);
+  --primary:         #1a73e8;
+  --primary-hover:   #1565c0;
+  --secondary:       #4fc3f7;
+  --success:         #00e676;
+  --error:           #ff5252;
+  --warning:         #ffab40;
+  --text:            #e8eaf6;
+  --text-secondary:  #90a4ae;
+
+  /* Spacing */
+  --radius:          12px;
+  --gap:             20px;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ── Utility ──────────────────────────────────────────────────── */
+.hidden { display: none !important; }
+
+.text-success { color: var(--success); }
+.text-error   { color: var(--error); }
+.text-warning { color: var(--warning); }
+
+/* ── Views ────────────────────────────────────────────────────── */
+.view {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Cards (Glass-morphism) ───────────────────────────────────── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  margin-bottom: var(--gap);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 30px rgba(26, 115, 232, 0.12);
+}
+
+/* ================================================================
+   LOGIN VIEW
+   ================================================================ */
+#loginView {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.login-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 440px;
+  text-align: center;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 8px 60px rgba(0, 0, 0, 0.45);
+  transition: transform 0.3s ease;
+}
+
+.login-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.login-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+/* ── Inputs ───────────────────────────────────────────────────── */
+.input-group {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(10, 14, 39, 0.7);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.input-group input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.input-group input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.25);
+}
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 12px 24px;
+  transition: background 0.25s ease, transform 0.15s ease, opacity 0.25s ease;
+}
+
+.btn:active { transform: scale(0.97); }
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), #1565c0);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--card-border);
+}
+.btn-outline:hover {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.btn-block {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn-sm {
+  padding: 6px 16px;
+  font-size: 0.82rem;
+}
+
+.btn-spinner { gap: 6px; }
+
+/* ── Status Message ───────────────────────────────────────────── */
+.status-message {
+  margin-top: 16px;
+  font-size: 0.88rem;
+  min-height: 22px;
+  transition: color 0.3s ease;
+}
+
+/* ── Shake animation (login error) ────────────────────────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.shake {
+  animation: shake 0.45s ease;
+}
+
+/* ================================================================
+   DASHBOARD VIEW
+   ================================================================ */
+#dashboardView {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ── Top Bar ──────────────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: var(--gap);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.topbar-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ── Dots ─────────────────────────────────────────────────────── */
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-green {
+  background: var(--success);
+  box-shadow: 0 0 6px var(--success);
+}
+.dot-red {
+  background: var(--error);
+  box-shadow: 0 0 6px var(--error);
+}
+
+/* ── Status Cards Row ─────────────────────────────────────────── */
+.status-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--gap);
+  margin-bottom: var(--gap);
+}
+
+.status-card .card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.card-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.card-icon {
+  font-size: 1rem;
+}
+
+.card-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.card-detail {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ── Section Title ────────────────────────────────────────────── */
+.section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+/* ── Dropzone ─────────────────────────────────────────────────── */
+.dropzone {
+  position: relative;
+  border: 2px dashed var(--card-border);
+  border-radius: var(--radius);
+  padding: 40px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  margin-bottom: 16px;
+}
+
+.dropzone:hover,
+.dropzone.dragover {
+  border-color: var(--primary);
+  background: rgba(26, 115, 232, 0.06);
+}
+
+.file-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dropzone-icon {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.dropzone-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ── File Info ─────────────────────────────────────────────────── */
+.file-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 12px 16px;
+  background: rgba(10, 14, 39, 0.6);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 0.88rem;
+}
+
+.file-detail {
+  display: flex;
+  gap: 6px;
+}
+
+.file-label {
+  color: var(--text-secondary);
+}
+
+/* ── Progress Bar ─────────────────────────────────────────────── */
+.progress-bar-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* ── Steps ────────────────────────────────────────────────────── */
+.step-list {
+  list-style: none;
+  counter-reset: none;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: opacity 0.3s ease;
+}
+
+.step:last-child { border-bottom: none; }
+
+.step-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  min-width: 28px;
+  text-align: center;
+}
+
+.step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.step-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.step-detail {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.step-success .step-name { color: var(--success); }
+.step-error   .step-name { color: var(--error); }
+
+/* ── Integrity Panel ──────────────────────────────────────────── */
+.integrity-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.integrity-label {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.hash-box {
+  display: inline-block;
+  padding: 8px 14px;
+  background: rgba(10, 14, 39, 0.7);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  font-family: "Cascadia Code", "Fira Code", "Consolas", monospace;
+  font-size: 0.78rem;
+  word-break: break-all;
+  color: var(--secondary);
+  max-width: 100%;
+}
+
+.integrity-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 0.84rem;
+}
+
+.integrity-details .detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.integrity-details .detail-label {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.integrity-details .detail-value {
+  font-weight: 600;
+  word-break: break-all;
+}
+
+/* ── History Table ────────────────────────────────────────────── */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.history-table th,
+.history-table td {
+  text-align: left;
+  padding: 10px 14px;
+  white-space: nowrap;
+}
+
+.history-table thead th {
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.history-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.2s ease;
+}
+
+.history-table tbody tr:hover {
+  background: rgba(26, 115, 232, 0.06);
+}
+
+.history-table .row-success td:last-child { color: var(--success); }
+.history-table .row-error   td:last-child { color: var(--error); }
+
+.empty-state {
+  text-align: center;
+  padding: 24px 0;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 600px) {
+  .login-card {
+    padding: 32px 20px;
+  }
+
+  #dashboardView {
+    padding: 16px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .file-info {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .integrity-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
